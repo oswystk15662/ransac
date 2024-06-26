@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ransac_osw</name>
+  <version>0.0.0</version>
+  <description>ransac with pico scan lib for line and corner ditection</description>
+  <maintainer email="oswystk15662@keio.jp">osw</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>sick_scan_xd</depend>
+  
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

@@ -1,0 +1,7 @@
+launch:
+
+- node:
+  pkg: "sick_scan_xd"
+  exec: "turtlesim_node"
+  name: "sim"
+  namespace: "turtlesim1"
