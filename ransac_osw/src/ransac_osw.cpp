@@ -7,15 +7,15 @@ Ransac_node::Ransac_node()
     , engine(seed_gen())
     , generator(0, DAITAI_SAIDAI_PARTICLE_NUM)
 {
-    sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>( "topic", 10, std::bind(&Ransac_node::lidar_callback, this, std::placeholders::_1));
+    sub_ = this->create_subscription<laser_scan_lite::msg::LaserScanLite>( "topic", 10, std::bind(&Ransac_node::lidar_callback, this, std::placeholders::_1));
 
     // yamlから読み込む変数の名前（stringで記述）をros2に教える。第２引数はなんでもいい
     declare_parameter("min_rad", 0);
     declare_parameter("Max_rad", M_PI);
     declare_parameter("Max_loop", 100);
-    declare_parameter("threshould", 0.5f);
+    declare_parameter("threshould", 2.5f);
 
-    declare_parameter("min_line_particles", 100);
+    declare_parameter("min_line_particles", 50);
 
 
     this->min_rad_ = get_parameter("min_rad").as_double();
@@ -27,16 +27,16 @@ Ransac_node::Ransac_node()
     this->MIN_LINE_PARTICLES_ = get_parameter("min_line_particles").as_int();
 }
 
-void Ransac_node::lidar_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg){
-    this->num_of_particles_ = msg->ranges.size();
+void Ransac_node::lidar_callback(const laser_scan_lite::msg::LaserScanLite& msg){
+    this->num_of_particles_ = msg.ranges.size();
     RCLCPP_INFO(this->get_logger(), "num of particles = %d\r\n", this->num_of_particles_);
 
-    for (int i = 0; i < (int)msg->ranges.size(); i++) {
-        float angle = msg->angle_min + i * msg->angle_increment;
+    for (int i = 0; i < (int)msg.ranges.size(); i++) {
+        float angle = msg.angle_min + i * msg.angle_increment;
 
         if(angle >= this->min_rad_ && angle <= this->Max_rad_){
-            this->points_[i].x = msg->ranges[i] * cosf(-angle);
-            this->points_[i].y = msg->ranges[i] * sinf(-angle);
+            this->points_[i].x = msg.ranges[i] * cosf(-angle);
+            this->points_[i].y = msg.ranges[i] * sinf(-angle);
         }
     }
 

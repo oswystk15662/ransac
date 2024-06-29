@@ -10,14 +10,21 @@ find_package(ament_cmake REQUIRED)
 
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(laser_scan_lite REQUIRED)
 
 find_package(sick_scan_xd REQUIRED)
 
 add_executable(ransac_osw_node src/ransac_osw.cpp)
-ament_target_dependencies(ransac_osw_node rclcpp sensor_msgs sick_scan_xd)
+ament_target_dependencies(ransac_osw_node rclcpp sensor_msgs laser_scan_lite sick_scan_xd)
 
 install(TARGETS
   ransac_osw_node
   DESTINATION lib/${PROJECT_NAME})
+
+# install launch files
+install(
+  DIRECTORY ./../launch
+  DESTINATION share/${PROJECT_NAME}/
+)
 
 ament_package()

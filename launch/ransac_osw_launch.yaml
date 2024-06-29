@@ -2,6 +2,8 @@ launch:
 
 - node:
   pkg: "sick_scan_xd"
-  exec: "turtlesim_node"
+  exec: "sick_scan_xd"
   name: "sim"
   namespace: "turtlesim1"
+  
+  # namespaceはよくわからない。remapはこのノードから吐かれるtopicの名前を変えられる。

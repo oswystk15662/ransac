@@ -7,6 +7,8 @@
 
 // #include <sensor_msgs/LaserScan.h>
 #include "sensor_msgs/msg/laser_scan.hpp"
+#include "laser_scan_lite/msg/laser_scan_lite.hpp"
+
 #include <cmath>
 #include <random>
 // #include <matplotlib-cpp/matplotlibcpp.h>
@@ -27,7 +29,7 @@ public:
     bool get_line(float* _return_data);
 
 private:
-    void lidar_callback(const sensor_msgs::msg::LaserScan::SharedPtr msg);
+    void lidar_callback(const laser_scan_lite::msg::LaserScanLite& msg);
     void ransac();
 
     void calc_param(float* _abc, Point2D _point1, Point2D _point2);
@@ -38,7 +40,7 @@ private:
     std::unique_ptr<Point2D[]> points_;
     std::unique_ptr<Point2D[]> plot_points_;
 
-    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr sub_;
+    rclcpp::Subscription<laser_scan_lite::msg::LaserScanLite>::SharedPtr sub_;
 
     std::unique_ptr<Point2D> new_point_;
 
